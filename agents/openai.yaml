@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pulse Design System Sync"
+  short_description: "Intake new Pulse designs and sync docs, standards, React components, and handoff HTML."
+  default_prompt: "Use $pulse-design-system-sync to intake a new Pulse design, standardize implementation checks, and synchronize docs, React components, and handoff HTML."
