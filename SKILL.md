@@ -1,6 +1,6 @@
 ---
 name: pulse-design-system-sync
-description: Maintain the Pulse design system across docs, React implementation, and handoff HTML. Use when working in the Pulse repo on design-system rules, component taxonomy, component APIs, React component extraction, engineering standardization, system framework checks, new design/page intake, external page migration, single-file HTML component-library specimens, Figma handoff updates, designer-friendly workflows, or requests like "update design system", "sync to component library", "reflect this in HTML", "add a component category", "bring in this new design", "standardize the implementation", or "write/update the design-system workflow".
+description: Keep the Pulse design system in sync across its three layers — Markdown rules, React/CSS implementation, and single-file handoff HTML. Use in the Pulse repo for design-system rules, component taxonomy and roadmap, component APIs, React component extraction, token and standardization checks, new design or page intake, and Figma handoff updates — e.g. "update the design system", "sync to the component library", "reflect this in the handoff HTML", "add a component category", or "bring in this new design".
 ---
 
 # Pulse Design System Sync
@@ -129,5 +129,7 @@ Read `references/workflow.md` when:
   use browser/visual QA only if layout risk is material.
 - For React changes: run the repo's build/test command and a runtime visual
   check for affected screens when feasible.
-- Report any unrelated modified files, especially `demo/pulse-react/src/tokens.css`,
-  without claiming ownership.
+- For shared files that many tasks touch (especially
+  `demo/pulse-react/src/tokens.css`), check whether the change is part of the
+  current task. Own and document it when it is; report — without claiming
+  ownership — only the changes that were already dirty from other work.
