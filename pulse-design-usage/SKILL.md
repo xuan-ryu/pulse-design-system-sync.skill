@@ -1,6 +1,6 @@
 ---
 name: pulse-design-usage
-description: Apply and review the Pulse design system on new pages, Figma frames, HTML drafts, screenshots, and component proposals. Use when Codex or Claude needs to critique, adapt, or implement a design using Pulse rules for calm reading, tonal hierarchy, spacing, grid, surfaces, shadows, status color semantics, component fit, and designer-friendly handoff outputs.
+description: Apply and review the Pulse design system on new pages, Figma frames, HTML drafts, screenshots, onboarding flows, analytics/report pages, signal feeds, AI generation states, and component proposals. Use when Codex or Claude needs to critique, adapt, or implement a design using Pulse rules for calm reading, tonal hierarchy, spacing, grid, surfaces, shadows, status color semantics, component fit, product-pattern fit, and designer-friendly handoff outputs.
 ---
 
 # Pulse Design Usage
@@ -22,6 +22,7 @@ Pulse overrides:
 - Use Pulse cyan, success green, and severity colors by meaning, not as decorative accent choices.
 - Prefer calm vertical reading rhythm over generic bento, hero, or card-heavy layouts.
 - Prefer standalone HTML/CSS component source and Figma handoff artifacts over React/Tailwind assumptions unless runtime work is explicitly requested.
+- Treat onboarding references as a separate product/art direction. Extract reusable component anatomy, flow states, generation behavior, and interaction patterns; do not port onboarding's editorial visual style into the main app system.
 - Keep motion restrained and stateful. Do not add perpetual decorative motion unless the user asks for it.
 
 ## Core Rule
@@ -54,9 +55,11 @@ Avoid layouts that force users to scan many equal-weight horizontal blocks. Pref
    - Read `references/design-review.md` when the user asks "look at this", "compare", "what is missing", "align to design system", or "make it better".
 3. Run the new design intake flow.
    - Read `references/new-design-intake.md` when a new page, external design, HTML draft, Figma frame, screenshot, or prototype should enter the Pulse system.
-4. Run the final preflight.
+4. Check product-pattern fit.
+   - Read `references/pulse-product-patterns.md` when the task involves Analytics, reports, Signal, onboarding, Studio previews, AI chat, AI generation, preview cards, modals, drawers, or live monitoring states.
+5. Run the final preflight.
    - Read `references/preflight.md` before final review or delivery when the task affects a UI, component, token, preview, or handoff artifact.
-5. If implementation is requested, make the smallest useful change and sync through `pulse-design-system-sync` when source files must be updated.
+6. If implementation is requested, make the smallest useful change and sync through `pulse-design-system-sync` when source files must be updated.
 
 ## Pulse Decisions
 
@@ -64,11 +67,14 @@ Avoid layouts that force users to scan many equal-weight horizontal blocks. Pref
 - Cyan 600 `#0ea5b8` is routine text or dot value.
 - Cyan 700 `#0D7685` is the deepest cyan emphasis.
 - Success green `#43BA51` is completion: done, approved, published, on-track.
-- Red, amber, and blue are severity or routing signals. Do not use cyan as generic decoration.
+- Red `#ef4444` (text `#dc2626`) protects now, amber `#f19a08` (text `#a1640b`) adjusts soon, and blue `#3987f3` (text `#1f6fe0`) replies / routes / schedules. These are severity or routing only — do not use cyan as generic decoration.
+- Each semantic color runs a 6-stop ramp (`50/100` soft fills, `200` line, `500` base, `600` text/dot, `700` deepest) for cyan, success, red, amber, blue, and indigo. Full values live in `design-system/handoff/components/tokens.css`.
 - Stage, panel, reading surface, and rare ink anchor should be visible as layers.
 - Grid, spacing, radius, and shadow guidance should be shown with visual samples when documenting the system, not only text rows.
 - Loading, empty, error, disabled, hover, focus, pressed, selected, active, and responsive states should be considered before calling a component ready.
 - Motion should explain state, progress, or generation. Animate `transform` and `opacity`; avoid decorative loops and layout-thrashing properties.
+- Generation and onboarding waits should never be spinner-only. Show what is being read, generated, or validated, and keep a useful preview, example report, or process state visible while the system works.
+- Onboarding art direction is not the main app art direction. Use onboarding only as evidence for useful components and states such as steppers, input stacks, upload zones, confirmation docks, generation status, and report previews.
 - Demo content should feel specific to campaigns, posts, Studio work, signals, or reports. Mark illustrative data clearly.
 
 ## Output Shape

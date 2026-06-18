@@ -1,4 +1,4 @@
 interface:
   display_name: "Pulse Design Usage"
-  short_description: "Review and apply Pulse design system rules."
-  default_prompt: "Use $pulse-design-usage to review this page against the Pulse design system and suggest concrete fixes."
+  short_description: "Review Pulse UI against design and product patterns."
+  default_prompt: "Use $pulse-design-usage to review this page against Pulse design rules, product patterns, and state coverage."

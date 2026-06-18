@@ -21,6 +21,8 @@ Use this reference when a new page, Figma frame, HTML draft, screenshot, prototy
    - Reuse existing component categories first.
    - Mark candidates only when reuse is plausible.
    - Translate foreign styling into Pulse tone, spacing, grid, and surface rules.
+   - If the source resembles Analytics, Signal, onboarding, Studio, AI chat, or generation, read `pulse-product-patterns.md` and map it to an existing Pulse product pattern before inventing a new layout model.
+   - If the source is onboarding, only intake style-independent components, states, and interaction patterns unless the target is onboarding itself.
 4. Choose the landing layer.
    - `Component source`: reusable component with structure, states, or behavior.
    - `HTML component preview`: component exists and needs review in the browser preview.
@@ -42,8 +44,8 @@ Use this reference when a new page, Figma frame, HTML draft, screenshot, prototy
 
 - Form fields: Field, Input, Textarea, Select, Combobox, Checkbox, Radio, Switch, DateTimeField, TagInput, Upload.
 - Feedback: Toast, InlineAlert, Banner, Modal, Drawer, Popover, Tooltip, Confirm, Skeleton, Spinner, Progress, ResultState.
-- Data display: MetricBlock, DataRow, DataList, DescriptionList, TableLite, Timeline, EmptyState, MediaPreview, chart shell.
-- Business patterns: command summary, signal queue, campaign pipeline, report readout, calendar post block, AI panel card, Studio review card, source citation row.
+- Data display: MetricBlock, DataRow, DataList, DescriptionList, TableLite, Timeline, EmptyState, MediaPreview, chart shell, KPIStrip, ChartWindow, MetricFooterBand.
+- Business patterns: command summary, signal queue, campaign pipeline, report readout, calendar post block, AI panel card, Studio review card, source citation row, ReportCanvas, LiveUpdateStrip, SignalRow, AITaskPanel, MilestoneStepper, GenerationStatus, ReportPreviewCarousel, NodeGenerationMap.
 
 ## Acceptance Criteria
 
@@ -56,4 +58,5 @@ A new design is ready to enter the system when:
 - State coverage is explicit: loading, empty, error, disabled, hover, focus, pressed, selected, active, or not applicable.
 - Responsive behavior is explicit, especially the small-screen stack.
 - Motion is either purposeful and bounded or intentionally absent.
+- Generation and onboarding states show useful process context, not only a spinner or progress bar.
 - Handoff status is explicit: Canonical, Component source, Preview, Figma handoff, Needs extraction, Token candidate, or Experimental.
