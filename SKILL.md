@@ -104,10 +104,10 @@ the Pulse system:
    - `design-system/component-roadmap.md`
    - `design-system/ai-generation-guide.md`
    - `demo/pulse-react/docs/design-system.md`
-   - `design-system/handoff/index.html`
-   - `design-system/handoff/component-library.html`
+   - `design-system/handoff/design-system.html`
+   - `design-system/handoff/figma-component-library.html`
    - `design-system/handoff/components/<Name>/<Name>.html` + `<Name>.css` (per-component source)
-   - `design-system/handoff/components/index.html` (component preview / browser)
+   - `design-system/handoff/components/html-component-preview.html` (HTML component preview / browser)
    - `design-system/handoff/components/tokens.css` (shared handoff tokens)
    - `demo/pulse-react/src/tokens.css` and `src/components/*` (legacy React source; only when that layer is explicitly in scope)
 3. Update the narrowest source first.

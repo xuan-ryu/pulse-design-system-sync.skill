@@ -6,8 +6,8 @@
 | --- | --- | --- |
 | Markdown contracts | Rules, taxonomy, roadmap, component API/state contracts | `design-system/component-library.md`, `design-system/component-roadmap.md`, `design-system/ai-generation-guide.md`, `demo/pulse-react/docs/design-system.md`, `design-system/README.md` |
 | Engineering component source | Structured reusable component source: one folder per component with its own HTML plus CSS/SCSS; React/runtime components only when that layer is explicitly in scope | `design-system/handoff/components/<Name>/<Name>.html` + `<Name>.css`, shared `design-system/handoff/components/tokens.css`; `demo/pulse-react/src/components/*` only as legacy where relevant |
-| Preview surface | Review surface that assembles the individual component files so all components can be seen together | `design-system/handoff/components/index.html` (tonal sidebar + iframe preview, hash-routed; add a row to its registry per new component) |
-| Single-file Figma handoff HTML | Figma/export-friendly visual specimens with CSS inlined into one portable file | `design-system/handoff/index.html`, `design-system/handoff/component-library.html`, future Figma bundled HTML |
+| Preview surface | Review surface that assembles the individual component files so all components can be seen together | `design-system/handoff/components/html-component-preview.html` (tonal sidebar + iframe preview, hash-routed; add a row to its registry per new component) |
+| Single-file Figma handoff HTML | Figma/export-friendly visual specimens with CSS inlined into one portable file | `design-system/handoff/design-system.html`, `design-system/handoff/figma-component-library.html`, future Figma bundled HTML |
 
 ## New Design Intake Flow
 
@@ -98,13 +98,13 @@ tokens, previews, or handoff specimens:
 | If the user changes... | Update/check... |
 | --- | --- |
 | Design principle or visual rule | `demo/pulse-react/docs/design-system.md`, `design-system/ai-generation-guide.md`, relevant handbook HTML section, and `component-library.md` if it affects component contracts. |
-| Component taxonomy or roadmap | `design-system/component-roadmap.md`, `design-system/component-library.md`, `demo/pulse-react/docs/design-system.md`, `design-system/ai-generation-guide.md`, and the Roadmap section in `handoff/component-library.html`. |
+| Component taxonomy or roadmap | `design-system/component-roadmap.md`, `design-system/component-library.md`, `demo/pulse-react/docs/design-system.md`, `design-system/ai-generation-guide.md`, and the Roadmap section in `handoff/figma-component-library.html`. |
 | Component API/state contract | `component-library.md`, `component-roadmap.md` if it changes extraction order, engineering component source if present, preview surface if present, and Figma handoff specimen once implementation settles. |
 | Individual HTML/SCSS component source | Component `.html` and `.scss`/`.css`, preview import/assembly, `component-library.md`, relevant docs, and Figma handoff specimen if the component is part of the design handoff board. |
 | Preview-only change | Preview file and related docs if the change affects component status or examples. Do not treat preview-only styling as component source. |
 | React/runtime component | Runtime component JSX/CSS, callsites, docs, and handoff/preview specimens if the component is part of the shared design system. Use this only when runtime implementation is actually in scope. |
-| Figma handoff HTML specimen only | `handoff/component-library.html` or future bundled Figma HTML; optionally link back to docs. State clearly it is not engineering source. |
-| Figma handoff/export wording | `handoff/index.html` or `handoff/component-library.html`, plus markdown docs if the rule should persist beyond the visual board. |
+| Figma handoff HTML specimen only | `handoff/figma-component-library.html` or future bundled Figma HTML; optionally link back to docs. State clearly it is not engineering source. |
+| Figma handoff/export wording | `handoff/design-system.html` or `handoff/figma-component-library.html`, plus markdown docs if the rule should persist beyond the visual board. |
 | Engineering standardization or framework rule | Add the rule to `component-library.md` or `ai-generation-guide.md`, reflect runtime implications in `demo/pulse-react/docs/design-system.md` if relevant, and update handoff HTML only if designers need to see the status or category. |
 | Token or CSS architecture decision | Update token/source CSS only when implementing runtime or component-library tokens; otherwise document the token candidate and avoid hardcoding it across multiple HTML/SCSS, preview, or Figma examples. |
 | New external design or page | Run the New Design Intake Flow, then update docs, engineering source, preview, Figma handoff HTML, runtime code, or feature-local code based on the chosen landing layer. |
@@ -141,7 +141,7 @@ Use these as starting points when extracting components:
 - Keep Figma handoff files self-contained. CSS stays inline in the HTML.
 - Prefer inserting into existing sections instead of adding disconnected
   appendices.
-- `component-library.html` has historical encoding artifacts. Use narrow,
+- `figma-component-library.html` has historical encoding artifacts. Use narrow,
   stable anchors and small insertions rather than broad paragraph replacements.
 - After updating handbook HTML, grep the new anchors/labels and inspect the diff.
 
