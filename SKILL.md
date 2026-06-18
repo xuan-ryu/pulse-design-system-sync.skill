@@ -106,9 +106,10 @@ the Pulse system:
    - `demo/pulse-react/docs/design-system.md`
    - `design-system/handoff/index.html`
    - `design-system/handoff/component-library.html`
-   - `demo/pulse-react/src/tokens.css`
-   - `demo/pulse-react/src/components/*`
-   - future component-library component folders and preview files
+   - `design-system/handoff/components/<Name>/<Name>.html` + `<Name>.css` (per-component source)
+   - `design-system/handoff/components/index.html` (component preview / browser)
+   - `design-system/handoff/components/tokens.css` (shared handoff tokens)
+   - `demo/pulse-react/src/tokens.css` and `src/components/*` (legacy React source; only when that layer is explicitly in scope)
 3. Update the narrowest source first.
 4. Sync the dependent surfaces using the matrix in
    `references/workflow.md` when the change crosses layers.

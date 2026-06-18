@@ -5,8 +5,8 @@
 | Layer | Purpose | Main files |
 | --- | --- | --- |
 | Markdown contracts | Rules, taxonomy, roadmap, component API/state contracts | `design-system/component-library.md`, `design-system/component-roadmap.md`, `design-system/ai-generation-guide.md`, `demo/pulse-react/docs/design-system.md`, `design-system/README.md` |
-| Engineering component source | Structured reusable component source, expected to support individual HTML plus SCSS/CSS files in the dedicated component-library project; React/runtime components only when that layer is explicitly in scope | Future component-library component folders, component `.html` files, component `.scss`/`.css` files, `demo/pulse-react/src/components/*` where relevant |
-| Preview surface | Review surface that imports or assembles individual component files so all components can be seen together | Future component-library preview files under `components` or equivalent preview entry |
+| Engineering component source | Structured reusable component source: one folder per component with its own HTML plus CSS/SCSS; React/runtime components only when that layer is explicitly in scope | `design-system/handoff/components/<Name>/<Name>.html` + `<Name>.css`, shared `design-system/handoff/components/tokens.css`; `demo/pulse-react/src/components/*` only as legacy where relevant |
+| Preview surface | Review surface that assembles the individual component files so all components can be seen together | `design-system/handoff/components/index.html` (tonal sidebar + iframe preview, hash-routed; add a row to its registry per new component) |
 | Single-file Figma handoff HTML | Figma/export-friendly visual specimens with CSS inlined into one portable file | `design-system/handoff/index.html`, `design-system/handoff/component-library.html`, future Figma bundled HTML |
 
 ## New Design Intake Flow
