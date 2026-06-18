@@ -1,0 +1,53 @@
+# New Design Intake
+
+Use this reference when a new page, Figma frame, HTML draft, screenshot, prototype, or external design enters Pulse.
+
+## Intake Steps
+
+1. Capture the source.
+   - Identify whether it is Figma, static HTML, screenshot, React page, written requirements, or product UI reference.
+   - Preserve intent: user task, data hierarchy, primary action, secondary actions, states, and responsive needs.
+2. Decompose the design.
+   - Layout shell.
+   - Data display.
+   - Form controls.
+   - Overlays.
+   - Feedback states.
+   - Navigation.
+   - Business patterns.
+   - Page-specific copy/data.
+   - One-off visuals.
+3. Map to Pulse.
+   - Reuse existing component categories first.
+   - Mark candidates only when reuse is plausible.
+   - Translate foreign styling into Pulse tone, spacing, grid, and surface rules.
+4. Choose the landing layer.
+   - `Component source`: reusable component with structure, states, or behavior.
+   - `HTML component preview`: component exists and needs review in the browser preview.
+   - `Figma component library`: designers need a portable specimen board.
+   - `Docs`: naming, API, ownership, or token decisions are not settled.
+   - `Feature local`: page-specific and not reusable yet.
+5. Record gaps.
+   - Missing states.
+   - Missing accessibility behavior.
+   - Missing token.
+   - Missing preview wiring.
+   - Needs extraction.
+   - Interaction pending.
+
+## Category Hints
+
+- Form fields: Field, Input, Textarea, Select, Combobox, Checkbox, Radio, Switch, DateTimeField, TagInput, Upload.
+- Feedback: Toast, InlineAlert, Banner, Modal, Drawer, Popover, Tooltip, Confirm, Skeleton, Spinner, Progress, ResultState.
+- Data display: MetricBlock, DataRow, DataList, DescriptionList, TableLite, Timeline, EmptyState, MediaPreview, chart shell.
+- Business patterns: command summary, signal queue, campaign pipeline, report readout, calendar post block, AI panel card, Studio review card, source citation row.
+
+## Acceptance Criteria
+
+A new design is ready to enter the system when:
+
+- The primary reading path is clear.
+- Reusable patterns are named.
+- One-off content is separated from reusable structure.
+- Tokens are reused or token candidates are listed.
+- Handoff status is explicit: Canonical, Component source, Preview, Figma handoff, Needs extraction, Token candidate, or Experimental.
