@@ -30,10 +30,13 @@ Use this reference when a new page, Figma frame, HTML draft, screenshot, prototy
 5. Record gaps.
    - Missing states.
    - Missing accessibility behavior.
+   - Missing responsive behavior.
    - Missing token.
    - Missing preview wiring.
+   - Missing credible data or content source.
    - Needs extraction.
    - Interaction pending.
+   - Motion pending.
 
 ## Category Hints
 
@@ -50,4 +53,7 @@ A new design is ready to enter the system when:
 - Reusable patterns are named.
 - One-off content is separated from reusable structure.
 - Tokens are reused or token candidates are listed.
+- State coverage is explicit: loading, empty, error, disabled, hover, focus, pressed, selected, active, or not applicable.
+- Responsive behavior is explicit, especially the small-screen stack.
+- Motion is either purposeful and bounded or intentionally absent.
 - Handoff status is explicit: Canonical, Component source, Preview, Figma handoff, Needs extraction, Token candidate, or Experimental.

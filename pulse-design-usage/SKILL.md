@@ -12,6 +12,18 @@ Use this skill to apply the Pulse design system to real design work. This is a u
 
 This skill is written as plain `SKILL.md` plus Markdown references so both Claude and Codex can use it. Codex also reads `agents/openai.yaml` for UI metadata.
 
+## Relationship To General Taste Skills
+
+Use general frontend taste skills for broad craft checks, but keep Pulse rules in charge when there is a conflict.
+
+Pulse overrides:
+
+- Use Manrope and the Pulse token system instead of introducing generic premium font stacks.
+- Use Pulse cyan, success green, and severity colors by meaning, not as decorative accent choices.
+- Prefer calm vertical reading rhythm over generic bento, hero, or card-heavy layouts.
+- Prefer standalone HTML/CSS component source and Figma handoff artifacts over React/Tailwind assumptions unless runtime work is explicitly requested.
+- Keep motion restrained and stateful. Do not add perpetual decorative motion unless the user asks for it.
+
 ## Core Rule
 
 Build hierarchy with tone, background layers, type weight, spacing, grid rhythm, and visual examples before adding borders. Borders and dividers are supporting tools, not the primary structure.
@@ -42,7 +54,9 @@ Avoid layouts that force users to scan many equal-weight horizontal blocks. Pref
    - Read `references/design-review.md` when the user asks "look at this", "compare", "what is missing", "align to design system", or "make it better".
 3. Run the new design intake flow.
    - Read `references/new-design-intake.md` when a new page, external design, HTML draft, Figma frame, screenshot, or prototype should enter the Pulse system.
-4. If implementation is requested, make the smallest useful change and sync through `pulse-design-system-sync` when source files must be updated.
+4. Run the final preflight.
+   - Read `references/preflight.md` before final review or delivery when the task affects a UI, component, token, preview, or handoff artifact.
+5. If implementation is requested, make the smallest useful change and sync through `pulse-design-system-sync` when source files must be updated.
 
 ## Pulse Decisions
 
@@ -53,6 +67,9 @@ Avoid layouts that force users to scan many equal-weight horizontal blocks. Pref
 - Red, amber, and blue are severity or routing signals. Do not use cyan as generic decoration.
 - Stage, panel, reading surface, and rare ink anchor should be visible as layers.
 - Grid, spacing, radius, and shadow guidance should be shown with visual samples when documenting the system, not only text rows.
+- Loading, empty, error, disabled, hover, focus, pressed, selected, active, and responsive states should be considered before calling a component ready.
+- Motion should explain state, progress, or generation. Animate `transform` and `opacity`; avoid decorative loops and layout-thrashing properties.
+- Demo content should feel specific to campaigns, posts, Studio work, signals, or reports. Mark illustrative data clearly.
 
 ## Output Shape
 

@@ -38,9 +38,22 @@ Use this reference when reviewing or improving the visual design of a Pulse page
 - Use shadow for hover/focus, overlays, and true elevation.
 - Use ink anchors sparingly: one or two per view at most.
 
+## Motion
+
+- Use motion to explain state change, generation progress, hover/focus feedback, or routing.
+- Avoid continuous decorative loops unless the user explicitly asks for an animated concept.
+- Animate `transform` and `opacity`; avoid `top`, `left`, `width`, and `height`.
+- Provide a reduced-motion fallback for long or repeated animations.
+
 ## Type and Weight
 
 - Use size, placement, spacing, and medium weight for hierarchy.
 - Avoid using bold everywhere to compensate for unclear layout.
 - Keep body text readable and quiet.
 - Use tabular numerals for metrics.
+
+## Content Specificity
+
+- Use concrete Pulse scenarios: campaigns, posts, Studio review, signal queues, reports, approvals, and source citations.
+- Avoid generic names, generic companies, and decorative fake metrics.
+- Label illustrative examples as illustrative when they are not canonical product data.

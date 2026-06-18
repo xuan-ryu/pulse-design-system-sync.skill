@@ -33,6 +33,20 @@ Use this reference when the user asks to review, compare, or align a design to P
    - Are repeated new values token candidates?
 6. Handoff clarity
    - Can a designer tell what is canonical, illustrative, experimental, or pending extraction?
+7. State completeness
+   - Are loading, empty, error, disabled, hover, focus, pressed, selected, and active states represented when relevant?
+   - Do states use Pulse tokens and clear labels instead of ad hoc colors?
+8. Responsive behavior
+   - Does the layout collapse cleanly below 760px?
+   - Do long labels, buttons, chips, and data rows fit without clipping or awkward overflow?
+   - Do visual samples for grid, spacing, radius, surface, and shadow remain readable on small screens?
+9. Motion and performance
+   - Does motion explain state, progress, hover/focus, or generation?
+   - Are animations limited to `transform` and `opacity` where possible?
+   - Is there a reduced-motion path for anything long-running or repeated?
+10. Content credibility
+   - Does demo data feel specific to campaign, post, Studio, signal, or report workflows?
+   - Are illustrative examples labeled instead of presented as canonical product truth?
 
 ## Finding Format
 
@@ -55,3 +69,4 @@ For each finding, include:
 - If the user asks to apply the changes, update the narrowest source first.
 - For design-system source updates, switch to `pulse-design-system-sync`.
 - Run link, anchor, grep, and diff checks for handoff HTML changes.
+- For runtime or preview changes, check the affected state cycle and responsive collapse before reporting done.
