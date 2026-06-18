@@ -5,8 +5,9 @@
 | Layer | Purpose | Main files |
 | --- | --- | --- |
 | Markdown contracts | Rules, taxonomy, roadmap, component API/state contracts | `design-system/component-library.md`, `design-system/component-roadmap.md`, `design-system/ai-generation-guide.md`, `demo/pulse-react/docs/design-system.md`, `design-system/README.md` |
-| React implementation | Runtime source of truth, reusable components, product CSS | `demo/pulse-react/src/tokens.css`, `base.css`, `src/components/*`, `src/home/shared/*`, feature folders |
-| Single-file handoff HTML | Figma/export-friendly visual specimens with inline CSS | `design-system/handoff/index.html`, `design-system/handoff/component-library.html` |
+| Engineering component source | Structured reusable component source, expected to support individual HTML plus SCSS/CSS files in the dedicated component-library project; React/runtime components only when that layer is explicitly in scope | Future component-library component folders, component `.html` files, component `.scss`/`.css` files, `demo/pulse-react/src/components/*` where relevant |
+| Preview surface | Review surface that imports or assembles individual component files so all components can be seen together | Future component-library preview files under `components` or equivalent preview entry |
+| Single-file Figma handoff HTML | Figma/export-friendly visual specimens with CSS inlined into one portable file | `design-system/handoff/index.html`, `design-system/handoff/component-library.html`, future Figma bundled HTML |
 
 ## New Design Intake Flow
 
@@ -30,10 +31,12 @@ needs to enter Pulse.
 4. Choose the first landing layer.
    - `Docs first`: use when the pattern needs naming, state, API, or ownership
      decisions before implementation.
-   - `Handoff HTML first`: use when designers need a portable specimen for
-     visual iteration or Figma import.
-   - `React first`: use when the pattern is already agreed and needs runtime
-     behavior, accessibility, state, and callsite migration.
+   - `Engineering source first`: use when the component is agreed and should
+     become an individual HTML/SCSS component source or runtime component.
+   - `Preview first`: use when the source component exists and needs a review
+     surface that assembles it with the rest of the library.
+   - `Figma handoff first`: use when designers need a portable single-file
+     specimen for Figma import or visual iteration.
    - `Feature local`: use when the design is page-specific and should not enter
      the shared library yet.
 5. Normalize before publishing.
@@ -43,44 +46,52 @@ needs to enter Pulse.
    - Preserve useful anatomy and interaction ideas while translating visual
      language into Pulse.
 6. Record status.
-   - Add `Canonical`, `Runtime component`, `Handoff specimen`, `Needs
+   - Add `Canonical`, `Component source`, `Preview`, `Figma handoff`, `Needs
      extraction`, `Token candidate`, or `Experimental` status where helpful.
    - Document missing work: component contract, token decision, accessibility,
-     responsive behavior, or runtime extraction.
+     responsive behavior, preview wiring, or runtime extraction.
 
 ## Engineering Standardization Loop
 
 Run this loop whenever a change affects shared components, component taxonomy,
-tokens, or handoff specimens:
+tokens, previews, or handoff specimens:
 
 1. Define the category.
    - Reuse an existing category when possible: form field, overlay, feedback,
      data display, business pattern, navigation, or layout shell.
    - If no category fits, add a roadmap entry before adding one-off examples.
 2. Define the contract.
-   - Name required props, optional props, variants, states, interaction rules,
-     accessibility expectations, and data shape.
+   - Name required props/data inputs, optional props, variants, states,
+     interaction rules, accessibility expectations, and data shape.
    - Include loading, empty, disabled, error, selected, active, and pending
      states when relevant.
 3. Check token usage.
    - Prefer existing color, spacing, radius, shadow, type, and motion tokens.
    - If a value is repeated but untokenized, mark it as a token candidate in the
-     docs before spreading it through React or HTML.
+     docs before spreading it through source, preview, or handoff HTML.
 4. Check CSS boundaries.
-   - Runtime styles belong in React/CSS files.
-   - Single-file handoff HTML keeps inline CSS only for Figma/export
-     portability; do not treat those styles as the product implementation.
+   - Engineering CSS belongs in SCSS/CSS source files beside or near the
+     component.
+   - The preview should consume component source styles instead of becoming the
+     only source of styling truth.
+   - Single-file Figma handoff HTML keeps inline CSS only for portability; do
+     not treat those inline styles as the engineering source.
 5. Check implementation shape.
-   - Shared components should be reusable and stateful where needed.
+   - Shared components should be reusable and state-aware where needed.
    - Feature modules should provide data, copy, and composition, not duplicate
      shared component mechanics.
-6. Check handoff clarity.
-   - HTML specimens should show canonical anatomy and important states.
-   - Label unfinished patterns as "Needs extraction" or "Token candidate" in
-     nearby docs or status text, not as polished runtime truth.
+   - Do not turn a pattern into a React component unless React/runtime
+     implementation is explicitly part of the task.
+6. Check preview and handoff clarity.
+   - Preview surfaces should show the component source in realistic states.
+   - Figma handoff specimens should show canonical anatomy and important states.
+   - Label unfinished patterns as `Needs extraction` or `Token candidate` in
+     nearby docs or status text, not as polished engineering truth.
 7. Verify.
-   - Use targeted `rg` for docs and HTML anchors.
-   - Use build/test/visual QA when React runtime files changed.
+   - Use targeted `rg` for docs, component files, preview imports, and HTML
+     anchors.
+   - Use build/test/visual QA when runtime, preview, or compiled component
+     output changed.
 
 ## Sync Matrix
 
@@ -88,13 +99,15 @@ tokens, or handoff specimens:
 | --- | --- |
 | Design principle or visual rule | `demo/pulse-react/docs/design-system.md`, `design-system/ai-generation-guide.md`, relevant handbook HTML section, and `component-library.md` if it affects component contracts. |
 | Component taxonomy or roadmap | `design-system/component-roadmap.md`, `design-system/component-library.md`, `demo/pulse-react/docs/design-system.md`, `design-system/ai-generation-guide.md`, and the Roadmap section in `handoff/component-library.html`. |
-| Component API/state contract | `component-library.md`, `component-roadmap.md` if it changes extraction order, React component implementation if present, and HTML specimen once implementation settles. |
-| React shared component | Component JSX/CSS, callsites, `component-library.md`, relevant docs, and HTML specimen if the component is part of the handoff board. |
-| Handoff HTML specimen only | `handoff/component-library.html`; optionally link back to docs. State clearly it is not runtime source. |
+| Component API/state contract | `component-library.md`, `component-roadmap.md` if it changes extraction order, engineering component source if present, preview surface if present, and Figma handoff specimen once implementation settles. |
+| Individual HTML/SCSS component source | Component `.html` and `.scss`/`.css`, preview import/assembly, `component-library.md`, relevant docs, and Figma handoff specimen if the component is part of the design handoff board. |
+| Preview-only change | Preview file and related docs if the change affects component status or examples. Do not treat preview-only styling as component source. |
+| React/runtime component | Runtime component JSX/CSS, callsites, docs, and handoff/preview specimens if the component is part of the shared design system. Use this only when runtime implementation is actually in scope. |
+| Figma handoff HTML specimen only | `handoff/component-library.html` or future bundled Figma HTML; optionally link back to docs. State clearly it is not engineering source. |
 | Figma handoff/export wording | `handoff/index.html` or `handoff/component-library.html`, plus markdown docs if the rule should persist beyond the visual board. |
-| Engineering standardization or framework rule | Add the rule to `component-library.md` or `ai-generation-guide.md`, reflect runtime implications in `demo/pulse-react/docs/design-system.md`, and update handoff HTML only if designers need to see the status or category. |
-| Token or CSS architecture decision | Update `tokens.css` only when implementing runtime tokens; otherwise document the token candidate and avoid hardcoding it across multiple HTML/React examples. |
-| New external design or page | Run the New Design Intake Flow, then update docs, React, handoff HTML, or feature-local code based on the chosen landing layer. |
+| Engineering standardization or framework rule | Add the rule to `component-library.md` or `ai-generation-guide.md`, reflect runtime implications in `demo/pulse-react/docs/design-system.md` if relevant, and update handoff HTML only if designers need to see the status or category. |
+| Token or CSS architecture decision | Update token/source CSS only when implementing runtime or component-library tokens; otherwise document the token candidate and avoid hardcoding it across multiple HTML/SCSS, preview, or Figma examples. |
+| New external design or page | Run the New Design Intake Flow, then update docs, engineering source, preview, Figma handoff HTML, runtime code, or feature-local code based on the chosen landing layer. |
 
 ## Component Roadmap Order
 
@@ -125,7 +138,7 @@ Use these as starting points when extracting components:
 
 ## Handoff HTML Rules
 
-- Keep handoff files self-contained. CSS stays inline in the HTML.
+- Keep Figma handoff files self-contained. CSS stays inline in the HTML.
 - Prefer inserting into existing sections instead of adding disconnected
   appendices.
 - `component-library.html` has historical encoding artifacts. Use narrow,
@@ -137,26 +150,30 @@ Use these as starting points when extracting components:
 Assume many readers are designers and should not need to understand the whole
 engineering stack to use the library correctly.
 
-- Make status explicit: `Canonical`, `Runtime component`, `Handoff specimen`,
-  `Needs extraction`, `Token candidate`, or `Experimental`.
+- Make status explicit: `Canonical`, `Component source`, `Preview`, `Figma
+  handoff`, `Needs extraction`, `Token candidate`, or `Experimental`.
 - Keep visible labels short and practical. Put engineering detail in markdown
   docs, not in dense UI copy.
 - When adding a specimen, include enough states for design iteration without
   pretending the specimen is already production-ready.
-- When a pattern is runtime-ready, name the React component or source file in
-  docs so engineering and design can point to the same object.
-- When a pattern is not runtime-ready, document the missing contract: props,
-  states, tokens, accessibility, or callsite migration.
+- When a pattern is engineering-ready, name the component source file, preview
+  entry, or runtime component in docs so engineering and design can point to
+  the same object.
+- When a pattern is not engineering-ready, document the missing contract:
+  inputs/props, states, tokens, accessibility, preview wiring, or migration.
 
 ## Automatic Check Prompts
 
 Before final response, answer these internally and fix gaps when feasible:
 
-- Did the change update the source layer first: docs, React, or handoff HTML?
+- Did the change update the source layer first: docs, component source, preview,
+  runtime, or Figma handoff HTML?
 - If a component category changed, did the roadmap and component library agree?
-- If runtime code changed, did docs and handoff specimens need updates?
-- If handoff HTML changed, is it clearly marked as a specimen rather than source
-  of runtime truth?
+- If component source changed, did the preview and Figma handoff specimen need
+  updates?
+- If runtime code changed, did docs and handoff/preview specimens need updates?
+- If Figma handoff HTML changed, is it clearly marked as a specimen rather than
+  engineering source?
 - Are there new borders, nested cards, or dense horizontal blocks that violate
   the calm-reading direction?
 - Are repeated values tokenized or at least documented as token candidates?
@@ -170,10 +187,11 @@ Before final response, answer these internally and fix gaps when feasible:
 
 When done, report:
 
-- Which layer changed: docs, runtime, handoff HTML, or several.
+- Which layer changed: docs, component source, preview, runtime, Figma handoff
+  HTML, or several.
 - Exact files updated.
-- Whether runtime build/visual QA was needed and run.
-- Whether standardization checks found any missing contract, token, or runtime
+- Whether runtime build/visual QA or preview QA was needed and run.
+- Whether standardization checks found any missing contract, token, preview, or
   extraction work.
 - For new designs, the chosen landing layer and the patterns/components that
   were accepted, deferred, or kept feature-local.

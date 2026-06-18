@@ -1,34 +1,54 @@
 ---
 name: pulse-design-system-sync
-description: Keep the Pulse design system in sync across its three layers — Markdown rules, React/CSS implementation, and single-file handoff HTML. Use in the Pulse repo for design-system rules, component taxonomy and roadmap, component APIs, React component extraction, token and standardization checks, new design or page intake, and Figma handoff updates — e.g. "update the design system", "sync to the component library", "reflect this in the handoff HTML", "add a component category", or "bring in this new design".
+description: Keep the Pulse design system in sync across Markdown rules, engineering component-library source, preview surfaces, and single-file Figma handoff HTML. Use in the Pulse repo for design-system rules, component taxonomy and roadmap, component APIs, HTML/SCSS component-library structure, React/runtime extraction only when explicitly needed, token and standardization checks, new design or page intake, and Figma handoff updates, e.g. "update the design system", "sync to the component library", "reflect this in the handoff HTML", "add a component category", or "bring in this new design".
 ---
 
 # Pulse Design System Sync
 
-Use this skill to keep Pulse design-system changes synchronized across three
-layers:
+Use this skill to keep Pulse design-system changes synchronized across the
+system surfaces:
 
 1. Markdown rules and contracts.
-2. Engineering implementation in React/CSS.
-3. Single-file HTML handoff boards used for Figma iteration/export.
+2. Engineering component-library source.
+3. Component preview surfaces.
+4. Single-file HTML handoff boards used for Figma iteration/export.
 
 The workflow must make engineering structure legible for designers. Do not rely
-on designers to infer which docs, runtime components, tokens, and handoff HTML
-must move together; run the synchronization and standardization checks
-explicitly.
+on designers to infer which docs, component sources, tokens, previews, and
+handoff HTML must move together; run the synchronization and standardization
+checks explicitly.
 
 ## Source Model
 
 - Markdown docs define rules, taxonomy, component contracts, and execution
   plans.
-- React components and CSS are the implementation source of truth for product
-  runtime behavior.
-- Single-file HTML files are visual specimen and handoff artifacts. They inline
+- The engineering component library is structured source. It may use
+  per-component HTML plus SCSS, or React/runtime components only when that layer
+  actually exists and is requested.
+- Component previews compose the individual component source files so designers
+  and engineers can see the full library in one place.
+- Single-file Figma handoff HTML files are bundled visual artifacts. They inline
   CSS so the whole board can be exported or moved into Figma.
 
-Do not treat handoff HTML as runtime source. Do not let runtime component
-changes skip documentation and specimen updates when the pattern is meant to be
-shared.
+Do not treat bundled Figma handoff HTML as engineering source. Do not assume a
+design-system change must become a React component; choose the engineering form
+that matches the actual component-library framework.
+
+## Expected Component-Library Shape
+
+When the dedicated engineering component library exists, expect this shape:
+
+- Each component owns an individual source file, such as `button.html`, plus
+  its own SCSS/CSS source.
+- Components can be as granular as `Button`, `Input`, `MetricBlock`, or other
+  named primitives/patterns.
+- A preview surface under `components` imports or assembles individual
+  component files so the whole library can be reviewed together.
+- A separate Figma version bundles the same component specimens and CSS into a
+  single self-contained HTML file. That file is for Figma import and visual
+  iteration, not for engineering reuse.
+- The preview should reference the component sources; the Figma version may
+  duplicate compiled/inline CSS because portability is the goal.
 
 ## Standardization Guardrails
 
@@ -40,8 +60,8 @@ Before finishing any non-trivial design-system change, check:
   interaction behavior, and empty/loading/error handling before broad reuse.
 - Token alignment: color, spacing, radius, type, shadow, and state values come
   from existing tokens or create a documented token need.
-- CSS architecture: runtime styles stay in the React/CSS source layer; handoff
-  HTML keeps inline CSS only because it is an export artifact.
+- CSS architecture: engineering styles stay in SCSS/CSS source files; Figma
+  handoff HTML keeps inline CSS only because it is an export artifact.
 - Framework boundary: business-specific content stays in feature modules;
   reusable behavior and structure move into shared components.
 - Designer handoff clarity: the HTML specimen names what is canonical, what is
@@ -61,7 +81,7 @@ the Pulse system:
   tone, background layers, type, spacing, reading rhythm, and light dividers
   before borders or nested cards.
 - Decide the landing layer:
-  - Runtime React component when it is reusable and behavior/state matters.
+  - Engineering component source when it is reusable and behavior/state matters.
   - Handoff HTML specimen when designers need a portable visual board first.
   - Markdown contract when the pattern needs agreement before implementation.
   - Feature-local implementation when it is specific to one page.
@@ -73,7 +93,8 @@ the Pulse system:
    - Design rule or visual principle.
    - Component taxonomy or roadmap.
    - Component API / state contract.
-   - React implementation.
+   - Engineering component-library implementation.
+   - Preview surface.
    - Single-file HTML specimen.
    - Figma handoff artifact.
    - New design/page intake.
@@ -87,13 +108,14 @@ the Pulse system:
    - `design-system/handoff/component-library.html`
    - `demo/pulse-react/src/tokens.css`
    - `demo/pulse-react/src/components/*`
+   - future component-library component folders and preview files
 3. Update the narrowest source first.
 4. Sync the dependent surfaces using the matrix in
    `references/workflow.md` when the change crosses layers.
 5. Run the standardization checks in `references/workflow.md` so component
-   contracts, tokens, CSS boundaries, and handoff status stay aligned.
+   contracts, tokens, CSS boundaries, previews, and handoff status stay aligned.
 6. Verify with diff and grep. Run product build or visual checks only when
-   runtime code changed.
+   runtime or preview code changed.
 
 ## Pulse-Specific Rules
 
@@ -108,17 +130,17 @@ the Pulse system:
   structure, behavior, state, accessibility, placement, validation, and repeated
   data anatomy.
 - For designer-facing surfaces, avoid implementation jargon in visible text.
-  Use clear labels like "Runtime component", "Handoff specimen", "Needs
-  extraction", and "Token candidate" when status must be communicated.
+  Use clear labels like "Component source", "Preview", "Figma handoff",
+  "Needs extraction", and "Token candidate" when status must be communicated.
 
 ## When To Read The Reference
 
 Read `references/workflow.md` when:
 
-- A change may need syncing between docs, React implementation, and HTML
-  handoff.
+- A change may need syncing between docs, engineering component source,
+  previews, and HTML handoff.
 - The task mentions Figma handoff, component-library HTML, engineering
-  component library, taxonomy, roadmap, or extraction waves.
+  component library, preview, taxonomy, roadmap, or extraction waves.
 - You are unsure which files must be updated together.
 
 ## Validation
@@ -127,9 +149,10 @@ Read `references/workflow.md` when:
   enough.
 - For handoff HTML changes: inspect the changed section and grep for anchors;
   use browser/visual QA only if layout risk is material.
-- For React changes: run the repo's build/test command and a runtime visual
-  check for affected screens when feasible.
-- For shared files that many tasks touch (especially
-  `demo/pulse-react/src/tokens.css`), check whether the change is part of the
-  current task. Own and document it when it is; report — without claiming
-  ownership — only the changes that were already dirty from other work.
+- For engineering component-library changes: check the component source and the
+  preview surface together; run the repo's build/test command when available.
+- For React/runtime changes: run the repo's build/test command and a runtime
+  visual check for affected screens when feasible.
+- For shared files that many tasks touch, check whether the change is part of
+  the current task. Own and document it when it is; report without claiming
+  ownership only the changes that were already dirty from other work.
